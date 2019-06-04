@@ -1,6 +1,10 @@
 module.exports = {
-  extends: './node_modules/eslint-config-airbnb-base/index.js',
+  extends: [
+    './node_modules/eslint-config-airbnb-base/index.js',
+    'plugin:react/recommended'
+  ],
   env: {
-    "jest": true
-  }
+    "browser": true,
+    },
+  "parser": "babel-eslint",
 };
