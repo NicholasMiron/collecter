@@ -6,5 +6,8 @@ module.exports = {
   env: {
     "browser": true,
     },
+  rules: {
+    "no-param-reassign": 0,
+  },
   "parser": "babel-eslint",
 };

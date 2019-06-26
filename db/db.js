@@ -11,7 +11,10 @@ mongoose.connect(uri, { useNewUrlParser: true });
 
 const collectorSchema = new Schema({
   collection_name: 'String',
-  fields: [Schema.Types.Mixed],
+  fields: [{
+    Header: 'String',
+    accessor: 'String',
+  }],
   items: [new Schema({}, { strict: false })],
 }, { strict: false });
 const Collections = mongoose.model('collections', collectorSchema);
@@ -19,9 +22,13 @@ const Collections = mongoose.model('collections', collectorSchema);
 
 const getAllCollections = () => Collections.find();
 
-const addCollection = name => Collections.create({ collection_name: name });
+const addCollection = name => Collections.create(
+  { collection_name: name },
+);
 
-const removeCollection = name => Collections.findOneAndDelete({ collection_name: name });
+const removeCollection = name => Collections.findOneAndDelete(
+  { collection_name: name },
+);
 
 
 const addField = (collection, field) => Collections.findOneAndUpdate(

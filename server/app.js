@@ -18,16 +18,23 @@ app.post('/api/collections', (req, res) => {
   res.end();
 });
 
+// Returns a list of collection names or the entirety of one collection
 app.get('/api/collections', (req, res) => {
   db.getAllCollections()
     .then((results) => {
-      // const names = results.map(item => item.collection_name);
+      if (req.query.name) {
+        const colName = req.query.name;
+        [results] = results.filter(col => col.collection_name === colName);
+      } else {
+        results = results.map(col => col.collection_name);
+      }
       res.send(results);
     })
     .catch((error) => {
       res.send(error);
     });
 });
+
 
 app.delete('/api/collections', (req, res) => {
   const collectionToRemove = req.body.name;
@@ -48,7 +55,6 @@ app.patch('/api/collections', (req, res) => {
 // Field Routes
 app.post('/api/collections/fields', (req, res) => {
   const { collection, field } = req.body;
-
   db.addField(collection, field)
     .then(() => {
       res.sendStatus(201);

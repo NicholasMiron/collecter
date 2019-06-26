@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+
 import Header from './Header';
 import TableWrapper from './Table';
 import Footer from './Footer';
+import Modal from './Modal';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      allCollections: [
-        'coins',
-        'stamps',
-        'cars',
-      ],
+      allCollections: [],
       currentCollection: '',
+      modal: false,
       columns: [
         { Header: 'Name', accessor: 'name' },
         { Header: 'Age', accessor: 'age' },
@@ -30,9 +30,33 @@ class App extends Component {
     };
   }
 
+  componentDidMount() {
+    axios.get('/api/collections')
+      .then((results) => {
+        this.setState({ allCollections: results.data });
+      });
+  }
+
   changeCollection({ value }) {
-    // TODO -> Get all items for the selected collection
-    this.setState({ currentCollection: value });
+    axios.get(`/api/collections?name=${value}`)
+      .then(({ data }) => {
+        this.setState(
+          {
+            currentCollection: data.collection_name,
+            columns: data.fields,
+            data: data.items,
+          }, this.setState(this.state),
+        );
+      });
+  }
+
+  addPiece() {
+    console.log(this.state);
+    this.setState({ modal: true });
+  }
+
+  hideModal() {
+    this.setState({ modal: false });
   }
 
   render() {
@@ -47,7 +71,8 @@ class App extends Component {
           data={this.state.data}
           columns={this.state.columns}
         />
-        <Footer />
+        <Footer addPiece={this.addPiece.bind(this)} />
+        <Modal displayed={this.state.modal} hideModal={this.hideModal.bind(this)}/>
       </div>
     );
   }
