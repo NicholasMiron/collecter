@@ -11,7 +11,6 @@ app.use(express.json({ extended: true }));
 
 app.use(express.static('dist'));
 
-
 app.use('/api', routes);
 
 

@@ -3,8 +3,8 @@ const db = require('../../db/db');
 
 const router = express.Router();
 
-router.post('/items', (req, res) => {
-  const { collection, item } = req.body;
+router.post('/', (req, res) => {
+  const { item, collection } = req.body;
 
   db.addItem(collection, item)
     .then(() => {
@@ -15,7 +15,7 @@ router.post('/items', (req, res) => {
     });
 });
 
-router.delete('/items', (req, res) => {
+router.delete('/', (req, res) => {
   const { collection, id } = req.body;
 
   db.removeItem(collection, id)
@@ -27,7 +27,7 @@ router.delete('/items', (req, res) => {
     });
 });
 
-router.patch('/items', (req, res) => {
+router.patch('/', (req, res) => {
   const { collection, item } = req.body;
 
   db.updateItem(collection, item._id, item)

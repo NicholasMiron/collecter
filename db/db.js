@@ -20,7 +20,10 @@ const collectorSchema = new Schema({
 const Collections = mongoose.model('collections', collectorSchema);
 
 
+// Collections
 const getAllCollections = () => Collections.find();
+
+const getCollectionByName = name => Collections.find({ collection_name: name });
 
 const addCollection = name => Collections.create(
   { collection_name: name },
@@ -30,7 +33,13 @@ const removeCollection = name => Collections.findOneAndDelete(
   { collection_name: name },
 );
 
+const updateCollection = (oldName, newName) => Collections.findOneAndUpdate(
+  { collection_name: oldName },
+  { $set: { collection_name: newName } },
+);
 
+
+// Fields
 const addField = (collection, field) => Collections.findOneAndUpdate(
   { collection_name: collection },
   { $push: { fields: field } },
@@ -47,10 +56,14 @@ const updateField = (collection, oldField, newField) => Collections.findOneAndUp
 );
 
 
-const addItem = (collection, item) => Collections.findOneAndUpdate(
-  { collection_name: collection },
-  { $push: { items: item } },
-);
+// Items
+const addItem = (collection, item) => {
+  console.log(collection, item);
+  return Collections.findOneAndUpdate(
+    { collection_name: collection },
+    { $push: { items: item } },
+  );
+};
 
 const removeItem = (collection, itemId) => Collections.findOneAndUpdate(
   { collection_name: collection },
@@ -65,8 +78,10 @@ const updateItem = (collection, itemId, item) => Collections.findOneAndUpdate(
 
 module.exports = {
   getAllCollections,
+  getCollectionByName,
   addCollection,
   removeCollection,
+  updateCollection,
   addField,
   removeField,
   updateField,
