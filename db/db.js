@@ -23,7 +23,7 @@ const Collections = mongoose.model('collections', collectorSchema);
 // Collections
 const getAllCollections = () => Collections.find();
 
-const getCollectionByName = name => Collections.find({ collection_name: name });
+const getCollectionByName = name => Collections.findOne({ collection_name: name });
 
 const addCollection = name => Collections.create(
   { collection_name: name },

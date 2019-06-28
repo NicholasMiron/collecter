@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const Modal = ({ formType, displayed, hideModal }) => {
   if (displayed) {
     return (
-      <div id='outerModal' onClick={hideModal}>
+      <div id='outerModal' onMouseDown={hideModal}>
         <div id='form'>
           <h1>Hello</h1>
           <h2>There</h2>
@@ -12,7 +12,7 @@ const Modal = ({ formType, displayed, hideModal }) => {
       </div>
     );
   }
-  return <div>Hi</div>;
+  return <></>;
 };
 
 Modal.propTypes = {

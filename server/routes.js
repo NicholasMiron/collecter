@@ -5,7 +5,7 @@ const db = require('../db/db');
 // const fieldRoutes = require('./Routes/fieldRoutes');
 // const itemRoutes = require('./Routes/itemRoutes');
 
-const router = express.Router();
+const router = express.Router({ strict: false, mergeParams: true });
 
 
 // router.use('/collections/fields', fieldRoutes);
@@ -27,23 +27,45 @@ router.get('/collections/:name', (req, res) => {
 
   db.getCollectionByName(colName)
     .then((results) => {
-      res.send(results);
+      if (!results) {
+        res.statusCode = 400;
+        res.send('Not a valid collection.');
+      } else res.send(results);
     })
     .catch(error => res.send(error));
 });
 
 router.post('/collections/', (req, res) => {
-  db.addCollection(req.body.name)
-    .then(() => res.sendStatus(201))
-    .catch(() => res.sendStatus(400));
+  db.getCollectionByName(req.body.name)
+    .then((result) => {
+      if (!result) {
+        db.addCollection(req.body.name)
+          .then(() => {
+            res.statusCode = 201;
+            res.send('Created!');
+          })
+          .catch(() => res.sendStatus(400));
+      } else {
+        res.statusCode = 400;
+        res.send('Collection already exists.');
+      }
+    });
 });
 
 router.delete('/collections/', (req, res) => {
   const collectionToRemove = req.body.name;
 
-  db.removeCollection(collectionToRemove)
-    .then(() => res.sendStatus(200))
-    .catch(() => res.sendStatus(400));
+  db.getCollectionByName(collectionToRemove)
+    .then((result) => {
+      if (!result) {
+        res.statusCode = 400;
+        res.send('Collection doesn\'t exist.');
+      } else {
+        db.removeCollection(collectionToRemove)
+          .then(() => res.sendStatus(200))
+          .catch(() => res.sendStatus(400));
+      }
+    });
 });
 
 router.patch('/collections/', (req, res) => {
@@ -51,7 +73,12 @@ router.patch('/collections/', (req, res) => {
   const newCollectionName = req.body.newName;
 
   db.updateCollection(collectionToUpdate, newCollectionName)
-    .then(() => res.sendStatus(200))
+    .then((result) => {
+      if (!result) {
+        res.statusCode = 400;
+        res.send('Collection doesn\'t exist');
+      } else res.sendStatus(200);
+    })
     .catch(() => res.sendStatus(400));
 });
 
@@ -62,8 +89,11 @@ router.post('/collections/:name/fields', (req, res) => {
   const collection = req.params.name;
 
   db.addField(collection, field)
-    .then(() => {
-      res.sendStatus(201);
+    .then((result) => {
+      if (!result) {
+        res.statusCode = 400;
+        res.send('Collection doesn\'t exist');
+      } else res.sendStatus(201);
     })
     .catch(() => {
       res.sendStatus(400);
@@ -75,8 +105,11 @@ router.delete('/collections/:name/fields', (req, res) => {
   const { fieldID } = req.body;
 
   db.removeField(collection, fieldID)
-    .then(() => {
-      res.sendStatus(200);
+    .then((result) => {
+      if (!result) {
+        res.statusCode = 400;
+        res.send('Collectin doesn\'t exist');
+      } else res.sendStatus(200);
     })
     .catch(() => {
       res.sendStatus(400);

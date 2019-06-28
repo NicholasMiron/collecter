@@ -12,46 +12,42 @@ class App extends Component {
     this.state = {
       allCollections: [],
       currentCollection: '',
+      columns: [],
+      data: [],
       modal: false,
-      columns: [
-        { Header: 'Name', accessor: 'name' },
-        { Header: 'Age', accessor: 'age' },
-        { Header: 'Friend', accessor: 'friend' },
-      ],
-      data: [
-        { name: 'nick', age: 22, friend: 'Santa' },
-        {
-          name: 'bill', age: 99, friend: 'Cats', food: 'pickle',
-        },
-        {
-          name: 'frank', friend: 'Mickey Mouse',
-        },
-      ],
     };
   }
 
   componentDidMount() {
     axios.get('/api/collections')
-      .then((results) => {
-        this.setState({ allCollections: results.data });
+      .then(({ data }) => {
+        const allCollections = data.map(col => col.collection_name);
+        this.setState(
+          {
+            allCollections,
+            currentCollection: data[0].collection_name,
+            columns: data[0].fields,
+            data: data[0].items,
+          },
+        );
       });
   }
 
   changeCollection({ value }) {
-    axios.get(`/api/collections?name=${value}`)
+    axios.get(`/api/collections/${value}`)
       .then(({ data }) => {
+        [data] = data;
         this.setState(
           {
             currentCollection: data.collection_name,
             columns: data.fields,
             data: data.items,
-          }, this.setState(this.state),
+          },
         );
       });
   }
 
   addPiece() {
-    console.log(this.state);
     this.setState({ modal: true });
   }
 

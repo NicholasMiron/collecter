@@ -10,5 +10,11 @@ module.exports = {
   rules: {
     "no-param-reassign": 0,
   },
+  "parserOptions": {
+    "ecmaFeatures": {
+        "spread": true,
+        "destructuring": true,
+    }
+  },
   "parser": "babel-eslint",
 };

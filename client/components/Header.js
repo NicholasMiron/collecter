@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import CollectionList from './Collections';
 
 const Header = ({ allCollections, changeCollection, currentCollection }) => (
-    <header>
-      <div>Some Name</div>
-      <div>Search</div>
-      <CollectionList
-        allCollections={allCollections}
-        changeCollection={changeCollection}
-        currentCollection={currentCollection}
-      />
-    </header>
+  <header>
+    <div>Some Name</div>
+    <div>Search</div>
+    <CollectionList
+      allCollections={allCollections}
+      changeCollection={changeCollection}
+      currentCollection={currentCollection}
+    />
+  </header>
 );
 
 Header.propTypes = {
