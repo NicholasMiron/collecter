@@ -1,0 +1,19 @@
+- Updating field should only change the Header value
+- Test database 
+- Test routes
+- Create dynamic form for inputing items.
+- Create dynamic form for inputing fields.
+- Create form for inputing collection.
+- Create dynamic form for updating items.
+- Create dynamic form for updating fields.
+- Create form for updating collection.
+- Add option to remove items.
+- Add option to remove fields.
+- Add option to remove collection. 
+- Create dynamic form that displays info for each item.
+- Support pictures
+- Generate report of all data for collection
+- Generate dynamic report based off of user fields
+- Allow user to search for specific items.
+- Limit routes to x number of items
+- Better error handling on requests

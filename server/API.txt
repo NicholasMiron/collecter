@@ -1,0 +1,46 @@
+- GET: /api/collections
+  - Returns everything about all collections
+- POST: /api/collections
+  - Creates a new collections
+  - Body must have a property "name" with value of the name of the new collections
+- DELETE: /api/collections
+  - Deletes an existing collections
+  - Body must have a property "name" with value of the collection to delete
+- PATCH: /api/collections
+  - Changes the name of an existing collection
+  - Body properties
+    - oldName: collection to update
+    - newName: new name for collection 
+
+- GET: /api/collections/:name
+  - Returns everything about a particular collections
+
+- POST: /api/collections/:name/fields
+  - Adds a field to a particular collection
+  - Body properties:
+    - Field
+      - Header: visible name
+      - accessor: hidden name
+- DELETE: /api/collections/:name/fields
+  - Deletes a field from a particular collection
+  - Body properties:
+    - fieldID: ID of field to delete
+- PATCH: /api/collections/:name/fields
+  - Updates a field from a particular collection
+  - Body properties
+    - fieldID: ID of the field to update
+    - newField: new name for the field
+
+- POST: /api/collections/:name/items
+  - Adds an item to a particular collection
+  - Body properties
+    - item: an object with key value pairs corresponding to the fields and their values
+- DELETE: /api/collections/:name/items
+  - Deletes an item from a particular collection
+  - Body properties
+    - itemID: the ID of the item to delete
+- PATCH: /api/collections/:name/items
+  - Updates an item from a particular collection
+  - Body properties
+    - item: the old item with updated values
+      - _id: must have the ID property

@@ -18,7 +18,6 @@ router.get('/', (req, res) => {
 router.get('/:name', (req, res) => {
   const colName = req.params.name;
   db.getCollectionByName(colName)
-    // .then(res.send)
     .then((results) => {
       res.send(results);
     })
@@ -27,7 +26,7 @@ router.get('/:name', (req, res) => {
 
 router.post('/:name', (req, res) => {
   db.addCollection(req.params.name)
-    .then(() => res.sendStatus(200))
+    .then(() => res.sendStatus(201))
     .catch(() => res.sendStatus(400));
 });
 

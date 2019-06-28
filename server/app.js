@@ -13,5 +13,4 @@ app.use(express.static('dist'));
 
 app.use('/api', routes);
 
-
 module.exports = app;

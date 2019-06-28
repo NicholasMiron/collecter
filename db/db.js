@@ -45,25 +45,25 @@ const addField = (collection, field) => Collections.findOneAndUpdate(
   { $push: { fields: field } },
 );
 
-const removeField = (collection, field) => Collections.findOneAndUpdate(
+const removeField = (collection, fieldID) => Collections.findOneAndUpdate(
   { collection_name: collection },
-  { $pull: { fields: field } },
+  { $pull: { fields: { _id: fieldID } } },
 );
 
-const updateField = (collection, oldField, newField) => Collections.findOneAndUpdate(
-  { collection_name: collection, field: oldField },
-  { $set: { 'field.$': newField } },
+const updateField = (collection, fieldID, newField) => Collections.findOne(
+  { collection_name: collection },
+  (err, col) => {
+    col.fields.id(fieldID).Header = newField;
+    col.save();
+  },
 );
 
 
 // Items
-const addItem = (collection, item) => {
-  console.log(collection, item);
-  return Collections.findOneAndUpdate(
-    { collection_name: collection },
-    { $push: { items: item } },
-  );
-};
+const addItem = (collection, item) => Collections.findOneAndUpdate(
+  { collection_name: collection },
+  { $push: { items: item } },
+);
 
 const removeItem = (collection, itemId) => Collections.findOneAndUpdate(
   { collection_name: collection },
