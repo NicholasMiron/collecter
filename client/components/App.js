@@ -14,7 +14,7 @@ class App extends Component {
       currentCollection: '',
       columns: [],
       data: [],
-      modal: false,
+      formType: '',
     };
   }
 
@@ -36,7 +36,6 @@ class App extends Component {
   changeCollection({ value }) {
     axios.get(`/api/collections/${value}`)
       .then(({ data }) => {
-        [data] = data;
         this.setState(
           {
             currentCollection: data.collection_name,
@@ -48,7 +47,11 @@ class App extends Component {
   }
 
   addPiece() {
-    this.setState({ modal: true });
+    this.setState({ formType: 'addPiece' });
+  }
+
+  addField() {
+    this.setState({ formType: 'addField' });
   }
 
   hideModal() {
@@ -67,8 +70,8 @@ class App extends Component {
           data={this.state.data}
           columns={this.state.columns}
         />
-        <Footer addPiece={this.addPiece.bind(this)} />
-        <Modal displayed={this.state.modal} hideModal={this.hideModal.bind(this)}/>
+        <Footer addField={this.addField.bind(this)} />
+        <Modal formType={this.state.formType} hideModal={this.hideModal.bind(this)}/>
       </div>
     );
   }

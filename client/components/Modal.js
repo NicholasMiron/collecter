@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Modal = ({ formType, displayed, hideModal }) => {
-  if (displayed) {
+import AddField from './Forms/AddField';
+
+const Modal = ({ formType, hideModal }) => {
+  if (formType === 'addItem') {
     return (
       <div id='outerModal' onMouseDown={hideModal}>
         <div id='form'>
@@ -11,12 +13,24 @@ const Modal = ({ formType, displayed, hideModal }) => {
         </div>
       </div>
     );
+  } if (formType === 'editItem') {
+    return <></>;
+  } if (formType === 'addField') {
+    return (
+      <div id='outerModal' onMouseDown={hideModal}>
+        <div id='form'>
+          <AddField />
+        </div>
+      </div>
+    );
+  } if (formType === 'editField') {
+    return <></>;
   }
   return <></>;
 };
 
 Modal.propTypes = {
-  displayed: PropTypes.bool,
+  formType: PropTypes.string,
   hideModal: PropTypes.func,
 };
 
