@@ -91,6 +91,13 @@ class AddField extends Component {
         </>
         );
         break;
+      case 'Date':
+        options = (
+          <>
+
+          </>
+        );
+        break;
       default:
         break;
     }
