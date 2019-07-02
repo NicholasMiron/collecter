@@ -126,7 +126,7 @@ class AddField extends Component {
               name={'format'}
               required={true}
               values={['YYYY', 'MM/YYYY', 'DD/MM/YYYY']}
-              placeholder={'Date Format'}
+              labelText={'Date Format'}
             />
           </div>
         </>
@@ -141,7 +141,7 @@ class AddField extends Component {
             name={'type'}
             required={true}
             values={['Text', 'Number', 'Date', 'Fixed Dropdown', 'Toggle', 'Checkboxs', 'Radio', 'Currency']}
-            placeholder={'What type of input would you like to add?'}
+            labelText={'What type of input would you like to add?'}
             handleChange={this.handleTypeSelect.bind(this)}
           />
         </div>

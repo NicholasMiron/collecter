@@ -28,14 +28,11 @@ class AddItem extends Component {
 
             if (type === 'Text') {
               return (
-                <InputTextField name={name} maxLength={maxLength} required={required} value={value} handleChange={this.handleEntryChange.bind(this)} placeholder={name}/>
+                <InputTextField name={name} maxLength={maxLength} required={required} value={value} handleChange={this.handleEntryChange.bind(this)} labelText={name}/>
               );
             } if (type === 'Fixed Dropdown') {
               return (
-                <div id={'formItem'}>
-                  <label forHtml={name}>{name}</label>
-                  <InputDropDown name={name} placeholder={label} required={required} values={values} multiple={multiple} handleChange={this.handleEntryChange.bind(this)}/>
-                </div>
+                <InputDropDown name={name} labelText={name} required={required} values={values} multiple={multiple} handleChange={this.handleEntryChange.bind(this)}/>
               );
             }
             return <></>;
