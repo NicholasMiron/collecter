@@ -14,6 +14,7 @@ const collectorSchema = new Schema({
   fields: [{
     Header: 'String',
     accessor: 'String',
+    form: {},
   }],
   items: [new Schema({}, { strict: false })],
 }, { strict: false });

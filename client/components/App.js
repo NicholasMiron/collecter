@@ -46,17 +46,42 @@ class App extends Component {
       });
   }
 
-  addPiece() {
-    this.setState({ formType: 'addPiece' });
+  addItem() {
+    this.setState({ formType: 'addItem' });
   }
 
   addField() {
     this.setState({ formType: 'addField' });
   }
 
-  hideModal() {
-    this.setState({ modal: false });
+  addCollection() {
+    const name = window.prompt('Name of collection to add');
+    axios.post('/api/collections', { name })
+      .then(() => {
+        this.setState({ currentCollection: name });
+      })
+      .catch(err => console.log(err));
   }
+
+  submitField(newField) {
+    axios.post(`/api/collections/${this.state.currentCollection}/fields`, {
+      field: { ...newField },
+    });
+  }
+
+  submitItem(item) {
+    axios.post(`/api/collections/${this.state.currentCollection}/items`, { item })
+      .then(() => {
+        const newData = [...this.state.data];
+        newData.push(item);
+        this.setState({ data: newData });
+      });
+  }
+
+  hideModal(e) {
+    this.setState({ formType: '' });
+  }
+
 
   render() {
     return (
@@ -65,13 +90,23 @@ class App extends Component {
           allCollections={this.state.allCollections}
           currentCollection={this.state.currentCollection}
           changeCollection={this.changeCollection.bind(this)}
+          addCollection={this.addCollection.bind(this)}
         />
         <TableWrapper
           data={this.state.data}
           columns={this.state.columns}
         />
-        <Footer addField={this.addField.bind(this)} />
-        <Modal formType={this.state.formType} hideModal={this.hideModal.bind(this)}/>
+        <Footer
+          addField={this.addField.bind(this)}
+          addItem={this.addItem.bind(this)}
+        />
+        <Modal
+          formType={this.state.formType}
+          columns={this.state.columns}
+          hideModal={this.hideModal.bind(this)}
+          submitField={this.submitField.bind(this)}
+          submitItem={this.submitItem.bind(this)}
+        />
       </div>
     );
   }

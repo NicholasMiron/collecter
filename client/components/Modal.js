@@ -2,29 +2,30 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import AddField from './Forms/AddField';
+import AddItem from './Forms/AddItem';
 
-const Modal = ({ formType, hideModal }) => {
-  if (formType === 'addItem') {
+const Modal = ({
+  formType, hideModal, submitField, columns, submitItem,
+}) => {
+  if (formType) {
+    let form = <></>;
+    if (formType === 'addItem') {
+      form = <AddItem fields={columns} submitItem={submitItem}/>;
+    } if (formType === 'editItem') {
+      return <></>;
+    } if (formType === 'addField') {
+      form = <AddField submitField={submitField} />;
+    } if (formType === 'editField') {
+      return <></>;
+    }
     return (
-      <div id='outerModal' onMouseDown={hideModal}>
-        <div id='form'>
-          <h1>Hello</h1>
-          <h2>There</h2>
+      <div id={'outerModal'}>
+        <div id={'form'}>
+          {form}
+        <div id={'closeModal'} onClick={hideModal}>close</div>
         </div>
       </div>
     );
-  } if (formType === 'editItem') {
-    return <></>;
-  } if (formType === 'addField') {
-    return (
-      <div id='outerModal' onMouseDown={hideModal}>
-        <div id='form'>
-          <AddField />
-        </div>
-      </div>
-    );
-  } if (formType === 'editField') {
-    return <></>;
   }
   return <></>;
 };
@@ -32,6 +33,9 @@ const Modal = ({ formType, hideModal }) => {
 Modal.propTypes = {
   formType: PropTypes.string,
   hideModal: PropTypes.func,
+  submitField: PropTypes.func,
+  columns: PropTypes.array,
+  submitItem: PropTypes.func,
 };
 
 export default Modal;
