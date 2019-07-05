@@ -36,16 +36,18 @@ class AddField extends Component {
   handleDataList(e) {
     if (e.keyCode === 13) {
       const newForm = { ...this.state.form };
-      if (!newForm.values) newForm.values = [];
 
-      newForm.values.push(e.target.value);
+      if (!newForm[e.target.name]) newForm[e.target.name] = [];
+
+      newForm[e.target.name].push(e.target.value);
       this.setState({ form: newForm });
     }
   }
 
   removeDataListItem(i) {
     const newForm = { ...this.state.form };
-    newForm.values.splice(i, 1);
+    const choice = newForm.values ? 'values' : 'options';
+    newForm[choice].splice(i, 1);
     this.setState({ form: newForm });
   }
 
@@ -105,7 +107,7 @@ class AddField extends Component {
           {fieldName}
           <div className={'formItem'}>
             <label htmlFor='values'>Dropdown Values</label>
-            <input type={'text'} onKeyDown={this.handleDataList.bind(this)}/>
+            <input type={'text'} name={'values'} onKeyDown={this.handleDataList.bind(this)}/>
             <ul>
               {this.state.form.values ? this.state.form.values.map((item, i) => (
                 <>
@@ -126,15 +128,13 @@ class AddField extends Component {
         <>
           {required}
           {fieldName}
-          <div className={'formItem'}>
-            <InputDropDown
-              name={'format'}
-              required={true}
-              values={['YYYY', 'MM/YYYY', 'DD/MM/YYYY']}
-              labelText={'Date Format'}
-              handleChange={this.handleEntryChange.bind(this)}
-            />
-          </div>
+          <InputDropDown
+            name={'format'}
+            required={true}
+            values={['YYYY', 'MM/YYYY', 'DD/MM/YYYY']}
+            labelText={'Date Format'}
+            handleChange={this.handleEntryChange.bind(this)}
+          />
         </>
       );
     } else if (this.state.inputType === 'Toggle') {
@@ -144,6 +144,25 @@ class AddField extends Component {
           {fieldName}
           <div className={'formItem'}>
             <InputToggle name={'defaultOn'} labelText={'Default toggle to on?'} />
+          </div>
+        </>
+      );
+    } else if (this.state.inputType === 'Radio') {
+      options = (
+        <>
+          {required}
+          {fieldName}
+          <div className={'formItem'}>
+            <label htmlFor={'options'}>Radio Options</label>
+            <input type={'text'} name={'options'} onKeyDown={this.handleDataList.bind(this)}/>
+            <ul>
+              {this.state.form.options ? this.state.form.options.map((item, i) => (
+                <>
+                  <li key={i}>{item}</li>
+                  <div onClick={() => this.removeDataListItem(i)}>X</div>
+                </>
+              )) : <></>}
+            </ul>
           </div>
         </>
       );

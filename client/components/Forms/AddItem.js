@@ -8,6 +8,7 @@ import InputMonth from './FormInput/InputMonth';
 import InputYear from './FormInput/InputYear';
 import InputDate from './FormInput/InputDate';
 import InputToggle from './FormInput/InputToggle';
+import InputRadio from './FormInput/InputRadio';
 
 class AddItem extends Component {
   constructor(props) {
@@ -33,7 +34,7 @@ class AddItem extends Component {
         <>
           {this.props.fields.map((field) => {
             const {
-              type, name, maxLength, required, value, values, multiple, min, max, step, format, defaultOn,
+              type, name, maxLength, required, value, values, multiple, min, max, step, format, defaultOn, options,
             } = field.form;
 
             if (type === 'Text') {
@@ -111,6 +112,16 @@ class AddItem extends Component {
                   labelText={name}
                   defaultOn={defaultOn}
                   required={required}
+                  handleChange={this.handleEntryChange.bind(this)}
+                />
+              );
+            }
+            if (type === 'Radio') {
+              return (
+                <InputRadio
+                  name={name}
+                  labelText={name}
+                  options={options}
                   handleChange={this.handleEntryChange.bind(this)}
                 />
               );
