@@ -1,4 +1,5 @@
 - Updating field should only change the Header value
+- Add ability to have general collection attributes
 - Test database 
 - Test routes
 - Create dynamic form for inputing items.
@@ -17,3 +18,5 @@
 - Allow user to search for specific items.
 - Limit routes to x number of items
 - Better error handling on requests
+- Add ability to copy fields from one collection to a new one
+- History of item editing

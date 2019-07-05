@@ -16,8 +16,8 @@ const collectorSchema = new Schema({
     accessor: 'String',
     form: {},
   }],
-  items: [new Schema({}, { strict: false })],
-}, { strict: false });
+  items: [new Schema({ any: {} }, { strict: false, timestamps: true })],
+}, { strict: false, timestamps: true });
 const Collections = mongoose.model('collections', collectorSchema);
 
 

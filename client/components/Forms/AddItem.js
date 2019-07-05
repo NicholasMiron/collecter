@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import InputTextField from './FormInput/InputTextField';
 import InputDropDown from './FormInput/InputDropdown';
+import InputNumber from './FormInput/InputNumber';
+import InputYear from './FormInput/InputYear';
 
 class AddItem extends Component {
   constructor(props) {
@@ -14,7 +16,11 @@ class AddItem extends Component {
 
   handleEntryChange(e) {
     const newItem = { ...this.state.item };
-    newItem[e.target.name] = e.target.value;
+    let { value } = e.target;
+
+    if (e.target.type === 'number' || e.target.type === 'Year') value = Number(value);
+
+    newItem[e.target.name] = value;
     this.setState({ item: newItem });
   }
 
@@ -23,16 +29,53 @@ class AddItem extends Component {
         <>
           {this.props.fields.map((field) => {
             const {
-              type, name, maxLength, required, value, label, values, multiple,
+              type, name, maxLength, required, value, values, multiple, min, max, step,
             } = field.form;
 
             if (type === 'Text') {
               return (
-                <InputTextField name={name} maxLength={maxLength} required={required} value={value} handleChange={this.handleEntryChange.bind(this)} labelText={name}/>
+                <InputTextField
+                  name={name}
+                  maxLength={maxLength}
+                  required={required}
+                  value={value}
+                  handleChange={this.handleEntryChange.bind(this)}
+                  labelText={name}
+                />
               );
-            } if (type === 'Fixed Dropdown') {
+            }
+            if (type === 'Fixed Dropdown') {
               return (
-                <InputDropDown name={name} labelText={name} required={required} values={values} multiple={multiple} handleChange={this.handleEntryChange.bind(this)}/>
+                <InputDropDown
+                  name={name}
+                  labelText={name}
+                  required={required}
+                  values={values}
+                  multiple={multiple}
+                  handleChange={this.handleEntryChange.bind(this)}
+                />
+              );
+            }
+            if (type === 'Number') {
+              return (
+                <InputNumber
+                  name={name}
+                  min={min}
+                  max={max}
+                  step={step}
+                  required={required}
+                  labelText={name}
+                  handleChange={this.handleEntryChange.bind(this)}
+                />
+              );
+            }
+            if (type === 'Year') {
+              return (
+                <InputYear
+                  name={name}
+                  labelText={name}
+                  handleChange={this.handleEntryChange.bind(this)}
+                />
               );
             }
             return <></>;

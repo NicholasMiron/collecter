@@ -134,7 +134,7 @@ router.patch('/collections/:name/fields', (req, res) => {
 router.post('/collections/:name/items', (req, res) => {
   const collection = req.params.name;
   const { item } = req.body;
-
+  console.log(item);
   db.addItem(collection, item)
     .then(() => {
       res.sendStatus(201);

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import InputDropDown from './FormInput/InputDropdown';
+import InputNumber from './FormInput/InputNumber';
 
 class AddField extends Component {
   constructor(props) {
@@ -32,7 +33,6 @@ class AddField extends Component {
   }
 
   handleDataList(e) {
-    console.log(e.keyCode);
     if (e.keyCode === 13) {
       const newForm = { ...this.state.form };
       if (!newForm.values) newForm.values = [];
@@ -43,14 +43,13 @@ class AddField extends Component {
   }
 
   removeDataListItem(i) {
-    const values = this.state.dropdownValues;
-    values.splice(i, 1);
-    this.setState({ dropdownValues: values });
+    const newForm = { ...this.state.form };
+    newForm.values.splice(i, 1);
+    this.setState({ form: newForm });
   }
 
   render() {
     let options;
-
     const required = (
       <div className={'formItem'}>
         <label htmlFor={'required'}>Is it required?</label>
@@ -92,6 +91,10 @@ class AddField extends Component {
       options = (
         <>
           {required}
+          {fieldName}
+          <InputNumber name={'min'} labelText={'min value for input'} handleChange={this.handleEntryChange.bind(this)}/>
+          <InputNumber name={'max'} labelText={'Max value for input'} handleChange={this.handleEntryChange.bind(this)}/>
+          <InputNumber name={'step'} labelText={'Step amount for input'} handleChange={this.handleEntryChange.bind(this)}/>
         </>
       );
     } else if (this.state.inputType === 'Fixed Dropdown') {

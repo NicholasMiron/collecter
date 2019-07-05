@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 
 const InputNumber = ({
-  placeholder, name, min, max, step, required,
+  labelText, name, min = Number.MIN_SAFE_INTEGER, max = Number.MAX_SAFE_INTEGER, step, required = false, handleChange,
 }) => (
-  <>
-    <label>{placeholder}</label>
+  <div className={'formItem'}>
+    <label forHtml={'name'}>{labelText}</label>
     <input
       type='number'
       name={name}
@@ -14,17 +14,19 @@ const InputNumber = ({
       max={max}
       step={step}
       required={required}
+      onChange={handleChange}
     />
-  </>
+  </div>
 );
 
 InputNumber.propTypes = {
-  placeholder: PropTypes.string,
+  labelText: PropTypes.string,
   name: PropTypes.string,
   min: PropTypes.number,
   max: PropTypes.number,
   step: PropTypes.number,
   required: PropTypes.bool,
+  handleChange: PropTypes.handleChange,
 };
 
 export default InputNumber;

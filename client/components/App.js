@@ -78,7 +78,7 @@ class App extends Component {
       });
   }
 
-  hideModal(e) {
+  hideModal() {
     this.setState({ formType: '' });
   }
 

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const InputDropDown = ({
   name, labelText = '', required = false, values = [], multiple = false, handleChange,
 }) => (
-    <div id={'formItem'}>
+    <div className={'formItem'}>
       <label forHtml={name}>{labelText}</label>
       <select name={name} required={required} onChange={handleChange} placeholder='Choose One' multiple={multiple}>
         <option value={'Pick one'} disabled selected>{multiple ? 'Pick One or More' : 'Pick One'}</option>
