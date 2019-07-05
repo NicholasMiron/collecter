@@ -7,12 +7,10 @@ const InputRadio = ({
     <div className={'formItem'}>
       <div>{labelText}</div>
       {options.map((option, i) => (
-        <div className={'radio'} key={i}>
-          <label>
-            <input type={'radio'} name={name} value={option} onChange={handleChange}/>
-            {option}
-          </label>
-        </div>
+        <label key={i}>
+          <input type={'radio'} name={name} value={option} onChange={handleChange}/>
+          {option}
+        </label>
       ))}
 
     </div>

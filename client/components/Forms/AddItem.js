@@ -9,6 +9,7 @@ import InputYear from './FormInput/InputYear';
 import InputDate from './FormInput/InputDate';
 import InputToggle from './FormInput/InputToggle';
 import InputRadio from './FormInput/InputRadio';
+import InputCurrency from './FormInput/InputCurrency';
 
 class AddItem extends Component {
   constructor(props) {
@@ -21,7 +22,6 @@ class AddItem extends Component {
   handleEntryChange(e) {
     const newItem = { ...this.state.item };
     let { value } = e.target;
-    console.log(value);
 
     if (e.target.type === 'number' || e.target.type === 'Year') value = Number(value);
 
@@ -122,6 +122,16 @@ class AddItem extends Component {
                   name={name}
                   labelText={name}
                   options={options}
+                  handleChange={this.handleEntryChange.bind(this)}
+                />
+              );
+            }
+            if (type === 'Currency') {
+              return (
+                <InputCurrency
+                  name={name}
+                  labelText={name}
+                  required={required}
                   handleChange={this.handleEntryChange.bind(this)}
                 />
               );

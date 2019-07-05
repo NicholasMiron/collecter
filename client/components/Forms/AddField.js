@@ -56,18 +56,33 @@ class AddField extends Component {
     const required = (
       <div className={'formItem'}>
         <label htmlFor={'required'}>Is it required?</label>
-        <input type={'checkbox'} name={'required'} onChange={this.handleCheckboxChange.bind(this)}/>
+        <input
+          type={'checkbox'}
+          name={'required'}
+          onChange={this.handleCheckboxChange.bind(this)}
+        />
       </div>
     );
 
     const submit = (
-      <input type={'button'} value={'Submit'} onClick={() => this.props.submitField({ Header: this.state.form.name, accessor: this.state.form.name, form: this.state.form })}/>
+      <input
+        type={'button'}
+        value={'Submit'}
+        onClick={() => this.props.submitField(
+          { Header: this.state.form.name, accessor: this.state.form.name, form: this.state.form },
+        )}
+      />
     );
 
     const fieldName = (
       <div className={'formItem'}>
         <label htmlFor={'name'}>Field Name</label>
-        <input type={'text'} name={'name'} required={true} onChange={this.handleEntryChange.bind(this)}/>
+        <input
+          type={'text'}
+          name={'name'}
+          required={true}
+          onChange={this.handleEntryChange.bind(this)}
+        />
       </div>
     );
 
@@ -164,6 +179,13 @@ class AddField extends Component {
               )) : <></>}
             </ul>
           </div>
+        </>
+      );
+    } else if (this.state.inputType === 'Currency') {
+      options = (
+        <>
+          {required}
+          {fieldName}
         </>
       );
     }
