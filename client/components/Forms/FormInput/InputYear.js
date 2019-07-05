@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const InputYear = ({ name, labelText, handleChange }) => (
     <div className='formItem'>
       <label forHtml={name}>{labelText}</label>
-      <input type={'number'} min={1700} max={2030} step={1} defaultValue={2019} onChange={handleChange} />
+      <input type={'number'} name={name} min={1700} max={2030} step={1} defaultValue={2019} onChange={handleChange} />
     </div>
 );
 

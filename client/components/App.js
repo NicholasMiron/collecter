@@ -85,7 +85,7 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <>
         <Header
           allCollections={this.state.allCollections}
           currentCollection={this.state.currentCollection}
@@ -107,7 +107,7 @@ class App extends Component {
           submitField={this.submitField.bind(this)}
           submitItem={this.submitItem.bind(this)}
         />
-      </div>
+      </>
     );
   }
 }

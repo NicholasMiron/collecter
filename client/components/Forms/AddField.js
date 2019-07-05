@@ -59,7 +59,6 @@ class AddField extends Component {
 
     const submit = (
       <input type={'button'} value={'Submit'} onClick={() => this.props.submitField({ Header: this.state.form.name, accessor: this.state.form.name, form: this.state.form })}/>
-
     );
 
     const fieldName = (
@@ -68,6 +67,7 @@ class AddField extends Component {
         <input type={'text'} name={'name'} required={true} onChange={this.handleEntryChange.bind(this)}/>
       </div>
     );
+
     if (this.state.inputType === 'Text') {
       options = (
         <>
@@ -124,12 +124,14 @@ class AddField extends Component {
       options = (
         <>
           {required}
+          {fieldName}
           <div className={'formItem'}>
             <InputDropDown
               name={'format'}
               required={true}
               values={['YYYY', 'MM/YYYY', 'DD/MM/YYYY']}
               labelText={'Date Format'}
+              handleChange={this.handleEntryChange.bind(this)}
             />
           </div>
         </>

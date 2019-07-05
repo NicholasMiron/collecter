@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import InputTextField from './FormInput/InputTextField';
 import InputDropDown from './FormInput/InputDropdown';
 import InputNumber from './FormInput/InputNumber';
+import InputMonth from './FormInput/InputMonth';
 import InputYear from './FormInput/InputYear';
+import InputDate from './FormInput/InputDate';
 
 class AddItem extends Component {
   constructor(props) {
@@ -17,6 +19,7 @@ class AddItem extends Component {
   handleEntryChange(e) {
     const newItem = { ...this.state.item };
     let { value } = e.target;
+    console.log(value);
 
     if (e.target.type === 'number' || e.target.type === 'Year') value = Number(value);
 
@@ -29,7 +32,7 @@ class AddItem extends Component {
         <>
           {this.props.fields.map((field) => {
             const {
-              type, name, maxLength, required, value, values, multiple, min, max, step,
+              type, name, maxLength, required, value, values, multiple, min, max, step, format,
             } = field.form;
 
             if (type === 'Text') {
@@ -69,14 +72,33 @@ class AddItem extends Component {
                 />
               );
             }
-            if (type === 'Year') {
-              return (
-                <InputYear
+            if (type === 'Date') {
+              if (format === 'YYYY') {
+                return (
+                  <InputYear
                   name={name}
                   labelText={name}
                   handleChange={this.handleEntryChange.bind(this)}
-                />
-              );
+                  />
+                );
+              }
+              if (format === 'MM/YYYY') {
+                return (
+                  <InputMonth
+                    name={name}
+                    labelText={name}
+                    handleChange={this.handleEntryChange.bind(this)}
+                  />
+                );
+              } if (format === 'DD/MM/YYYY') {
+                return (
+                  <InputDate
+                    name={name}
+                    labelText={name}
+                    handleChange={this.handleEntryChange.bind(this)}
+                  />
+                );
+              }
             }
             return <></>;
           })}
