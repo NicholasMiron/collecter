@@ -1,29 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const InputYear = ({
-  name, labelText, handleChange, required,
+const InputToggle = ({
+  name, labelText, required, defaultOn, handleChange,
 }) => (
-    <div className='formItem'>
-      <label forHtml={name}>{labelText}</label>
+    <div className={'formItem'}>
+      <label htmlFor={name}>{labelText}</label>
       <input
-        type={'number'}
+        type={'checkbox'}
         name={name}
-        min={1700}
-        max={2030}
-        step={1}
-        defaultValue={2019}
+        checked={defaultOn}
         required={required}
         onChange={handleChange}
       />
     </div>
 );
 
-InputYear.propTypes = {
+InputToggle.propTypes = {
   name: PropTypes.string,
   labelText: PropTypes.string,
+  defaultOn: PropTypes.bool,
   required: PropTypes.bool,
   handleChange: PropTypes.func,
 };
 
-export default InputYear;
+export default InputToggle;

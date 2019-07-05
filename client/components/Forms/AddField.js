@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import InputDropDown from './FormInput/InputDropdown';
 import InputNumber from './FormInput/InputNumber';
+import InputToggle from './FormInput/InputToggle';
 
 class AddField extends Component {
   constructor(props) {
@@ -133,6 +134,16 @@ class AddField extends Component {
               labelText={'Date Format'}
               handleChange={this.handleEntryChange.bind(this)}
             />
+          </div>
+        </>
+      );
+    } else if (this.state.inputType === 'Toggle') {
+      options = (
+        <>
+          {required}
+          {fieldName}
+          <div className={'formItem'}>
+            <InputToggle name={'defaultOn'} labelText={'Default toggle to on?'} />
           </div>
         </>
       );

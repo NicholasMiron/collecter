@@ -7,6 +7,7 @@ import InputNumber from './FormInput/InputNumber';
 import InputMonth from './FormInput/InputMonth';
 import InputYear from './FormInput/InputYear';
 import InputDate from './FormInput/InputDate';
+import InputToggle from './FormInput/InputToggle';
 
 class AddItem extends Component {
   constructor(props) {
@@ -32,7 +33,7 @@ class AddItem extends Component {
         <>
           {this.props.fields.map((field) => {
             const {
-              type, name, maxLength, required, value, values, multiple, min, max, step, format,
+              type, name, maxLength, required, value, values, multiple, min, max, step, format, defaultOn,
             } = field.form;
 
             if (type === 'Text') {
@@ -66,8 +67,8 @@ class AddItem extends Component {
                   min={min}
                   max={max}
                   step={step}
-                  required={required}
                   labelText={name}
+                  required={required}
                   handleChange={this.handleEntryChange.bind(this)}
                 />
               );
@@ -78,6 +79,7 @@ class AddItem extends Component {
                   <InputYear
                   name={name}
                   labelText={name}
+                  required={required}
                   handleChange={this.handleEntryChange.bind(this)}
                   />
                 );
@@ -87,6 +89,7 @@ class AddItem extends Component {
                   <InputMonth
                     name={name}
                     labelText={name}
+                    required={required}
                     handleChange={this.handleEntryChange.bind(this)}
                   />
                 );
@@ -95,10 +98,22 @@ class AddItem extends Component {
                   <InputDate
                     name={name}
                     labelText={name}
+                    required={required}
                     handleChange={this.handleEntryChange.bind(this)}
                   />
                 );
               }
+            }
+            if (type === 'Toggle') {
+              return (
+                <InputToggle
+                  name={name}
+                  labelText={name}
+                  defaultOn={defaultOn}
+                  required={required}
+                  handleChange={this.handleEntryChange.bind(this)}
+                />
+              );
             }
             return <></>;
           })}
